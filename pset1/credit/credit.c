@@ -1,5 +1,34 @@
 #include <stdio.h>
+/**
 
+:) credit.c exists.
+:) credit.c compiles.
+:( identifies 378282246310005 as AMEX
+    expected "AMEX\n", not "\nResult (15 di..."
+:( identifies 371449635398431 as AMEX
+    expected "AMEX\n", not "\nResult (15 di..."
+:( identifies 5555555555554444 as MASTERCARD
+    expected "MASTERCARD\n", not "\nResult (16 di..."
+:( identifies 5105105105105100 as MASTERCARD
+    expected "MASTERCARD\n", not "\nResult (16 di..."
+:( identifies 4111111111111111 as VISA
+    expected "VISA\n", not "\nResult (16 di..."
+:( identifies 4012888888881881 as VISA
+    expected "VISA\n", not "\nResult (16 di..."
+:( identifies 1234567890 as INVALID
+    expected "INVALID\n", not "\nResult (10 di..."
+:( identifies 369421438430814 as INVALID
+    expected "INVALID\n", not "\nResult (15 di..."
+:( identifies 4062901840 as INVALID
+    expected "INVALID\n", not "\nResult (10 di..."
+:( identifies 5673598276138003 as INVALID
+    expected "INVALID\n", not "\nResult (16 di..."
+:( identifies 4111111111111113 as INVALID
+    expected "INVALID\n", not "\nResult (16 di..."
+:) rejects a non-numeric input of "foo"
+:) rejects a non-numeric input of ""
+
+*/
 /**
  * Specifications:
    AMEX - 15 digits
@@ -42,7 +71,7 @@ int * getCardNumber()
 
   printf("Number: ");
 
-  int c, i, digits = 0, redo_flag = 0, *return_pointer;
+  int c, digits = 0, redo_flag = 0, *return_pointer;
   static int card_number[16];
 
   while ( (c=getchar()) != EOF && c != '\n' )
@@ -72,5 +101,6 @@ int * getCardNumber()
   return return_pointer;
 
 }
+
 
 
