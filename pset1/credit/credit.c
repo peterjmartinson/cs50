@@ -37,6 +37,12 @@
      start with 51-55
    Visa - 13 or 16 digits
      start with 4
+
+   Checksums:
+   1. Multiply every other digit by 2, starting with second-last digit
+   2. Add those products together
+   3. Add that sum to the sum of all the other digits
+   4. If last digit is 0, the number is valid
 */
 
 int * getCardNumber(void);
