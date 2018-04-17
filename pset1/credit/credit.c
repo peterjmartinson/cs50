@@ -1,37 +1,28 @@
 #include <stdio.h>
 
-/**
- * Specifications:
-   AMEX - 15 digits
-     start with 34 or 37
-   MC - 16 digits
-     start with 51-55
-   Visa - 13 or 16 digits
-     start with 4
-*/
 
 int * getCardNumber(void);
+int validateCardNumber(int *);
 
 int main(void)
 {
 
-  int i, digits, first_doublet, *card;
+  int i, digits, *card, valid_number = 0;
 
   card = getCardNumber();
   digits = card[0];
-  first_doublet = card[2] + (10 * card[1]);
+  valid_number = validateCardNumber(card);
 
   printf("\n");
 
-  printf("Result (%d digits):\n", *card);
-  for (i = 1; i < *card + 1; i++) {
-    printf("%d ", *(card + i));
-  }
-  printf("\n");
-
-  // issue: storage is CHAR type, not INT - need to use CHAR codes!
-  /* if ( first_doublet >= 51 && first_doublet <= 55  && digits == 16 ) */
-    printf("MasterCard: %d\n", first_doublet);
+  if ( card[1] == 3 && (card[2] == 4 || card[2] == 7) && digits == 15 )
+    printf("AMEX\n");
+  else if ( card[1] == 5 && (card[2] >= 1 && card[2] <= 5) && digits == 16 )
+    printf("MC\n");
+  else if ( card[1] == 4 && (digits == 13 || digits == 16 ) )
+    printf("Visa\n");
+  else
+    printf("INVALID\n");
 
   return 0;
   
@@ -73,4 +64,6 @@ int * getCardNumber()
 
 }
 
-
+int validateCardNumber(int *p) {
+  return 0;
+}
