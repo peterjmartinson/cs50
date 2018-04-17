@@ -53,7 +53,7 @@ int * getCardNumber()
     }
     else
     { // Otherwise, push onto the array
-      card_number[++digits] = c-48;
+      card_number[++digits] = c - 48;
     }
   }
 
