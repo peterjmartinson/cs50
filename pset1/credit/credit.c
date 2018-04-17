@@ -3,28 +3,17 @@
 
 :) credit.c exists.
 :) credit.c compiles.
-:( identifies 378282246310005 as AMEX
-    expected "AMEX\n", not "\nResult (15 di..."
-:( identifies 371449635398431 as AMEX
-    expected "AMEX\n", not "\nResult (15 di..."
-:( identifies 5555555555554444 as MASTERCARD
-    expected "MASTERCARD\n", not "\nResult (16 di..."
-:( identifies 5105105105105100 as MASTERCARD
-    expected "MASTERCARD\n", not "\nResult (16 di..."
-:( identifies 4111111111111111 as VISA
-    expected "VISA\n", not "\nResult (16 di..."
-:( identifies 4012888888881881 as VISA
-    expected "VISA\n", not "\nResult (16 di..."
-:( identifies 1234567890 as INVALID
-    expected "INVALID\n", not "\nResult (10 di..."
-:( identifies 369421438430814 as INVALID
-    expected "INVALID\n", not "\nResult (15 di..."
-:( identifies 4062901840 as INVALID
-    expected "INVALID\n", not "\nResult (10 di..."
-:( identifies 5673598276138003 as INVALID
-    expected "INVALID\n", not "\nResult (16 di..."
-:( identifies 4111111111111113 as INVALID
-    expected "INVALID\n", not "\nResult (16 di..."
+:( identifies 378282246310005 as AMEX expected "AMEX\n", not "\nResult (15 di..."
+:( identifies 371449635398431 as AMEX expected "AMEX\n", not "\nResult (15 di..."
+:( identifies 5555555555554444 as MASTERCARD expected "MASTERCARD\n", not "\nResult (16 di..."
+:( identifies 5105105105105100 as MASTERCARD expected "MASTERCARD\n", not "\nResult (16 di..."
+:( identifies 4111111111111111 as VISA expected "VISA\n", not "\nResult (16 di..."
+:( identifies 4012888888881881 as VISA expected "VISA\n", not "\nResult (16 di..."
+:( identifies 1234567890 as INVALID expected "INVALID\n", not "\nResult (10 di..."
+:( identifies 369421438430814 as INVALID expected "INVALID\n", not "\nResult (15 di..."
+:( identifies 4062901840 as INVALID expected "INVALID\n", not "\nResult (10 di..."
+:( identifies 5673598276138003 as INVALID expected "INVALID\n", not "\nResult (16 di..."
+:( identifies 4111111111111113 as INVALID expected "INVALID\n", not "\nResult (16 di..."
 :) rejects a non-numeric input of "foo"
 :) rejects a non-numeric input of ""
 
@@ -59,7 +48,9 @@ int main(void)
 
   printf("\n");
 
-  if ( card[1] == 3 && (card[2] == 4 || card[2] == 7) && digits == 15 )
+  if ( valid_number != 0 )
+    printf("INVALID - checksum = %d\n", valid_number);
+  else if ( card[1] == 3 && (card[2] == 4 || card[2] == 7) && digits == 15 )
     printf("AMEX\n");
   else if ( card[1] == 5 && (card[2] >= 1 && card[2] <= 5) && digits == 16 )
     printf("MC\n");
@@ -109,5 +100,18 @@ int * getCardNumber()
 }
 
 int validateCardNumber(int *p) {
-  return 0;
+  int length = p[0];
+  int first_sum = 0;
+  int final_sum = 0;
+  int i;
+
+    printf("\np[i] p[i+1] first_sum final_sum\n");
+  for (i = length - 1; i > 0; i = i - 2)
+  {
+    first_sum += p[i] * 2;
+    final_sum += p[i + 1];
+    printf("%d %d %d %d\n", p[i], p[i+1], first_sum, final_sum);
+  }
+    
+  return (first_sum + final_sum)%10;
 }
