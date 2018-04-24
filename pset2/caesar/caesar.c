@@ -3,14 +3,15 @@
 
 int isUpper(char letter);
 int isLower(char letter);
-int shiftUpper(char letter);
+void shiftUpper(char *letter, int key);
+void shiftLower(char *letter, int key);
 // A-Z = 65-90
 // a-z = 97-122
 
 int main(int argc, const char *argv[])
 {
   int i, key = (int) strtol(argv[1], NULL, 10);
-  char str[] = "It was the best of times, it was the worst of times.";
+  char str[] = "ABCDEF.GHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
 
   for (i = 0; str[i] != '\0'; i++)
@@ -18,14 +19,14 @@ int main(int argc, const char *argv[])
     printf("%c (%d) ", str[i], str[i]);
     if (isUpper(str[i]))
     {
-      printf("(upper), ");
+      shiftUpper(str + i, key);
     }
     else if (isLower(str[i]))
     {
-      printf("(lower), ");
+      shiftLower(str + i, key);
     }
     else
-      printf("(symbol), ");
+      ;
 
   }
 
@@ -47,6 +48,14 @@ int isLower(char letter) {
   return bool;
 }
 
-int shiftUpper(char letter) {
-  return 0;
+void shiftUpper(char *letter, int key) {
+  char l = *letter;
+  char new_letter = (l - 65 + key)%26 + 65;
+  printf("shifting [%c] to [%c]\n", l, new_letter);
+}
+
+void shiftLower(char *letter, int key) {
+  char l = *letter;
+  char new_letter = (l - 97 + key)%26 + 97;
+  printf("shifting [%c] to [%c]\n", l, new_letter);
 }
