@@ -3,6 +3,18 @@
  * 2018 (c) Peter Martinson
  * 
  */
+/**
+:) caesar.c exists.
+:) caesar.c compiles.
+:( encrypts "a" as "b" using 1 as key expected "ciphertext: b\n", not "argc: 2\nyour s..."
+:( encrypts "barfoo" as "yxocll" using 23 as key expected "ciphertext: yxo...", not "argc: 2\nyour s..."
+:( encrypts "BARFOO" as "EDUIRR" using 3 as key expected "ciphertext: EDU...", not "argc: 2\nyour s..."
+:( encrypts "BaRFoo" as "FeVJss" using 4 as key expected "ciphertext: FeV...", not "argc: 2\nyour s..."
+:( encrypts "barfoo" as "onesbb" using 65 as key expected "ciphertext: one...", not "argc: 2\nyour s..."
+:( encrypts "world, say hello!" as "iadxp, emk tqxxa!" using 12 as key expected "ciphertext: iad...", not "argc: 2\nyour s..."
+:( handles lack of argv[1] timed out while waiting for program to exit
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -12,7 +24,6 @@ void shiftUpper(char *letter, int key);
 void shiftLower(char *letter, int key);
 char * getString(void);
 
-static int MAXLENGTH = 1000;
 
 
 // A-Z = 65-90
@@ -20,11 +31,14 @@ static int MAXLENGTH = 1000;
 
 int main(int argc, const char *argv[])
 {
-  int i, key = (int) strtol(argv[1], NULL, 10);
+  int i, key;
+  if (argc == 2)
+    key = (int) strtol(argv[1], NULL, 10);
   char str[] = "ABCDEF.GHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
   char *newstr;
   newstr = getString();
-
+  
+  printf("argc: %d\n", argc);
   printf("your string: %s\n", newstr);
 
 
