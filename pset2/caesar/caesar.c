@@ -10,7 +10,10 @@ int isUpper(char letter);
 int isLower(char letter);
 void shiftUpper(char *letter, int key);
 void shiftLower(char *letter, int key);
-/* int * getString(void); */
+char * getString(void);
+
+static int MAXLENGTH = 1000;
+
 
 // A-Z = 65-90
 // a-z = 97-122
@@ -19,6 +22,10 @@ int main(int argc, const char *argv[])
 {
   int i, key = (int) strtol(argv[1], NULL, 10);
   char str[] = "ABCDEF.GHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+  char *newstr;
+  newstr = getString();
+
+  printf("your string: %s\n", newstr);
 
 
   for (i = 0; str[i] != '\0'; i++)
@@ -67,36 +74,21 @@ void shiftLower(char *letter, int key) {
   *letter = new_letter;
 }
 
-/* int * getString(void) */
-/* { */
+char * getString(void)
+{
+  int c, num_letters = 0;
+  char *return_pointer;
+  static char phrase[1000];
 
-/*   printf("Phrase: "); */
+  printf("Phrase: ");
 
-/*   int c, digits = 0, redo_flag = 0, *return_pointer; */
-/*   static int card_number[17]; */
+  while ((c=getchar()) != EOF && c != '\n')
+  {
+    phrase[++num_letters] = c;
+  }
 
-/*   while ((c=getchar()) != EOF && c != '\n') */
-/*   { */
-/*     if (c < '0' || c > '9' || digits > 15) */
-/*     { */
-/*       redo_flag = 1; */
-/*     } */
-/*     else */
-/*     { */
-/*       card_number[++digits] = c - 48; */
-/*     } */
-/*   } */
+  return_pointer = phrase;
 
-/*   card_number[0] = digits; */
+  return return_pointer;
 
-/*   return_pointer = card_number; */
-
-/*   // if the number is bad, recurse */
-/*   if (redo_flag == 1) */
-/*   { */
-/*     return_pointer = getCardNumber(); */
-/*   } */
-
-/*   return return_pointer; */
-
-/* } */
+}
