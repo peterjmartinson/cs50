@@ -34,29 +34,50 @@ int main(int argc, const char *argv[])
   int i, key;
   if (argc == 2)
     key = (int) strtol(argv[1], NULL, 10);
-  char str[] = "ABCDEF.GHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+  else
+    return 0;
+  char str[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
   char *newstr;
+  char output_str[1000];
   newstr = getString();
   
-  printf("argc: %d\n", argc);
+  /* printf("argc: %d\n", argc); */
   printf("your string: %s\n", newstr);
 
 
-  for (i = 0; str[i] != '\0'; i++)
+  /* for (i = 0; str[i] != '\0'; i++) */
+  /* { */
+  /*   if (isUpper(str[i])) */
+  /*   { */
+  /*     shiftUpper(str + i, key); */
+  /*   } */
+  /*   else if (isLower(str[i])) */
+  /*   { */
+  /*     shiftLower(str + i, key); */
+  /*   } */
+  /*   else */
+  /*     ; */
+  /* } */
+
+  for (i = 0; newstr[i] != '\0'; i++)
   {
-    if (isUpper(str[i]))
+    if (isUpper(newstr[i]))
     {
-      shiftUpper(str + i, key);
+      shiftUpper(newstr + i, key);
     }
-    else if (isLower(str[i]))
+    else if (isLower(newstr[i]))
     {
-      shiftLower(str + i, key);
+      shiftLower(newstr + i, key);
     }
     else
       ;
   }
 
-  printf("new string: %s\n", str);
+  for (i = 0; newstr[i] != '\0'; i++)
+  {
+    output_str[i] = *(newstr + i);
+  }
+  printf("new string: %c\n", *newstr);
 
   return 0;
 }
@@ -101,6 +122,7 @@ char * getString(void)
     phrase[++num_letters] = c;
   }
 
+  printf("the array: %c\n", phrase[0]);
   return_pointer = phrase;
 
   return return_pointer;
