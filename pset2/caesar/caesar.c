@@ -24,9 +24,7 @@ int isLower(char letter);
 void shiftUpper(char *letter, int key);
 void shiftLower(char *letter, int key);
 char * getString(char *string);
-/* char * getString(void); */
-
-
+#define MAXLINE 256
 
 // A-Z = 65-90
 // a-z = 97-122
@@ -34,32 +32,30 @@ char * getString(char *string);
 int main(int argc, const char *argv[])
 {
   int i, key;
+  char *str = malloc(MAXLINE);
+
   if (argc == 2)
     key = (int) strtol(argv[1], NULL, 10);
   else
     return 0;
-  char str[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-  char newstr[100];
-  char output_str[1000];
-  getString(newstr);
-  printf("your string: %s\n", newstr);
 
+  getString(str);
 
-  for (i = 0; newstr[i] != '\0'; i++)
+  for (i = 0; str[i] != '\0'; i++)
   {
-    if (isUpper(newstr[i]))
+    if (isUpper(str[i]))
     {
-      shiftUpper(newstr + i, key);
+      shiftUpper(str + i, key);
     }
-    else if (isLower(newstr[i]))
+    else if (isLower(str[i]))
     {
-      shiftLower(newstr + i, key);
+      shiftLower(str + i, key);
     }
     else
       ;
   }
 
-  printf("new string: %s\n", newstr);
+  printf("new string: %s\n", str);
 
   return 0;
 }
@@ -93,6 +89,8 @@ void shiftLower(char *letter, int key) {
 char* getString(char *s)
 {
   printf("Phrase: ");
-  scanf("%99s", s);
+  fgets(s, MAXLINE, stdin);
+  if ((strlen(s) > 0) && (s[strlen (s) - 1] == '\n'))
+    s[strlen(s) - 1] = '\0'; // Remove the newline
   return s;
 }
