@@ -17,12 +17,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int isUpper(char letter);
 int isLower(char letter);
 void shiftUpper(char *letter, int key);
 void shiftLower(char *letter, int key);
-char * getString(void);
+char * getString(char *string);
+/* char * getString(void); */
 
 
 
@@ -37,27 +39,11 @@ int main(int argc, const char *argv[])
   else
     return 0;
   char str[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-  char *newstr;
+  char newstr[100];
   char output_str[1000];
-  newstr = getString();
-  
-  /* printf("argc: %d\n", argc); */
+  getString(newstr);
   printf("your string: %s\n", newstr);
 
-
-  /* for (i = 0; str[i] != '\0'; i++) */
-  /* { */
-  /*   if (isUpper(str[i])) */
-  /*   { */
-  /*     shiftUpper(str + i, key); */
-  /*   } */
-  /*   else if (isLower(str[i])) */
-  /*   { */
-  /*     shiftLower(str + i, key); */
-  /*   } */
-  /*   else */
-  /*     ; */
-  /* } */
 
   for (i = 0; newstr[i] != '\0'; i++)
   {
@@ -73,11 +59,7 @@ int main(int argc, const char *argv[])
       ;
   }
 
-  for (i = 0; newstr[i] != '\0'; i++)
-  {
-    output_str[i] = *(newstr + i);
-  }
-  printf("new string: %c\n", *newstr);
+  printf("new string: %s\n", newstr);
 
   return 0;
 }
@@ -100,7 +82,6 @@ void shiftUpper(char *letter, int key) {
   char l = *letter;
   char new_letter = (l - 65 + key)%26 + 65;
   *letter = new_letter;
-  /* printf("shifting [%c] to [%c]\n", l, new_letter); */
 }
 
 void shiftLower(char *letter, int key) {
@@ -109,22 +90,9 @@ void shiftLower(char *letter, int key) {
   *letter = new_letter;
 }
 
-char * getString(void)
+char* getString(char *s)
 {
-  int c, num_letters = 0;
-  char *return_pointer;
-  static char phrase[1000];
-
   printf("Phrase: ");
-
-  while ((c=getchar()) != EOF && c != '\n')
-  {
-    phrase[++num_letters] = c;
-  }
-
-  printf("the array: %c\n", phrase[0]);
-  return_pointer = phrase;
-
-  return return_pointer;
-
+  scanf("%99s", s);
+  return s;
 }
