@@ -1,19 +1,8 @@
 /**
- * Produces a Caesar encryption
+ * Produces a Caesarean encryption
  * 2018 (c) Peter Martinson
  * 
  */
-/**
-:) caesar.c exists.
-:) caesar.c compiles.
-:( encrypts "a" as "b" using 1 as key expected "ciphertext: b\n", not "argc: 2\nyour s..."
-:( encrypts "barfoo" as "yxocll" using 23 as key expected "ciphertext: yxo...", not "argc: 2\nyour s..."
-:( encrypts "BARFOO" as "EDUIRR" using 3 as key expected "ciphertext: EDU...", not "argc: 2\nyour s..."
-:( encrypts "BaRFoo" as "FeVJss" using 4 as key expected "ciphertext: FeV...", not "argc: 2\nyour s..."
-:( encrypts "barfoo" as "onesbb" using 65 as key expected "ciphertext: one...", not "argc: 2\nyour s..."
-:( encrypts "world, say hello!" as "iadxp, emk tqxxa!" using 12 as key expected "ciphertext: iad...", not "argc: 2\nyour s..."
-:( handles lack of argv[1] timed out while waiting for program to exit
-*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -37,7 +26,7 @@ int main(int argc, const char *argv[])
   if (argc == 2)
     key = (int) strtol(argv[1], NULL, 10);
   else
-    return 0;
+    return 1;
 
   getString(str);
 
@@ -55,24 +44,7 @@ int main(int argc, const char *argv[])
       ;
   }
 
-  printf("ciphertext: %s\n", plaintext);
-
-  for (i = 0; plaintext[i] != '\0'; i++)
-  {
-    printf("char: %c", *plaintext);
-    if (isUpper(plaintext[i]))
-    {
-      shiftUpper(plaintext + i, key);
-    }
-    else if (isLower(plaintext[i]))
-    {
-      shiftLower(plaintext + i, key);
-    }
-    else
-      ;
-  }
-
-  printf("ciphertext: %s\n", plaintext);
+  printf("ciphertext: %s\n", str);
 
   return 0;
 }
@@ -105,7 +77,7 @@ void shiftLower(char *letter, int key) {
 
 char* getString(char *s)
 {
-  printf("Phrase: ");
+  printf("plaintext: ");
   fgets(s, MAXLINE, stdin);
   if ((strlen(s) > 0) && (s[strlen (s) - 1] == '\n'))
     s[strlen(s) - 1] = '\0'; // Remove the newline
