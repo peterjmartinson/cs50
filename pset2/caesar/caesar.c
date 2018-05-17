@@ -34,14 +34,13 @@ int main(int argc, const char *argv[])
   int i, key;
   if (argc == 2)
     key = (int) strtol(argv[1], NULL, 10);
+  else
+    return 1;
+
   char str[] = "ABCDEF.GHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-  char *newstr;
-  newstr = getString();
+  char *plaintext;
+  plaintext = getString();
   
-  printf("argc: %d\n", argc);
-  printf("your string: %s\n", newstr);
-
-
   for (i = 0; str[i] != '\0'; i++)
   {
     if (isUpper(str[i]))
@@ -56,7 +55,24 @@ int main(int argc, const char *argv[])
       ;
   }
 
-  printf("new string: %s\n", str);
+  printf("ciphertext: %s\n", plaintext);
+
+  for (i = 0; plaintext[i] != '\0'; i++)
+  {
+    printf("char: %c", *plaintext);
+    if (isUpper(plaintext[i]))
+    {
+      shiftUpper(plaintext + i, key);
+    }
+    else if (isLower(plaintext[i]))
+    {
+      shiftLower(plaintext + i, key);
+    }
+    else
+      ;
+  }
+
+  printf("ciphertext: %s\n", plaintext);
 
   return 0;
 }
@@ -94,7 +110,7 @@ char * getString(void)
   char *return_pointer;
   static char phrase[1000];
 
-  printf("Phrase: ");
+  printf("plaintext: ");
 
   while ((c=getchar()) != EOF && c != '\n')
   {
