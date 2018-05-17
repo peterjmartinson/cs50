@@ -17,14 +17,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int isUpper(char letter);
 int isLower(char letter);
 void shiftUpper(char *letter, int key);
 void shiftLower(char *letter, int key);
-char * getString(void);
-
-
+char * getString(char *string);
+#define MAXLINE 256
 
 // A-Z = 65-90
 // a-z = 97-122
@@ -32,15 +32,15 @@ char * getString(void);
 int main(int argc, const char *argv[])
 {
   int i, key;
+  char *str = malloc(MAXLINE);
+
   if (argc == 2)
     key = (int) strtol(argv[1], NULL, 10);
   else
-    return 1;
+    return 0;
 
-  char str[] = "ABCDEF.GHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-  char *plaintext;
-  plaintext = getString();
-  
+  getString(str);
+
   for (i = 0; str[i] != '\0'; i++)
   {
     if (isUpper(str[i]))
@@ -95,7 +95,6 @@ void shiftUpper(char *letter, int key) {
   char l = *letter;
   char new_letter = (l - 65 + key)%26 + 65;
   *letter = new_letter;
-  /* printf("shifting [%c] to [%c]\n", l, new_letter); */
 }
 
 void shiftLower(char *letter, int key) {
@@ -104,21 +103,11 @@ void shiftLower(char *letter, int key) {
   *letter = new_letter;
 }
 
-char * getString(void)
+char* getString(char *s)
 {
-  int c, num_letters = 0;
-  char *return_pointer;
-  static char phrase[1000];
-
-  printf("plaintext: ");
-
-  while ((c=getchar()) != EOF && c != '\n')
-  {
-    phrase[++num_letters] = c;
-  }
-
-  return_pointer = phrase;
-
-  return return_pointer;
-
+  printf("Phrase: ");
+  fgets(s, MAXLINE, stdin);
+  if ((strlen(s) > 0) && (s[strlen (s) - 1] == '\n'))
+    s[strlen(s) - 1] = '\0'; // Remove the newline
+  return s;
 }
